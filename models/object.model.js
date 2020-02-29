@@ -2,15 +2,15 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ObjectSchema = new Schema(
-  {
-    key: { type: String, required: true },
-    value: { type: String, required: true },
-    timestamp: { type: Date, default: Date.now },
-        history: {
-            version: {type: Number, default: 1},
-            value: { type: String},
-            timestamp: { type: Date, default: Date.now }
-    }
+    {
+        key: { type: String, required: true },
+        value: { type: String, required: true },
+        timestamp: { type: Date, default: Date.now },
+            history: {
+                version: {type: Number, default: 1},
+                value: { type: String},
+                timestamp: { type: Date, default: Date.now }
+        }
 });
 
 ObjectSchema.methods.toJSON = function() {

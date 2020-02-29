@@ -10,6 +10,6 @@ module.exports = function (app, db) {
     });
 
     app.get("/object/:key", (req, res) => {
-        ObjectController.findByKey(req, res);
+        ObjectController.findByKeyParams(req, res);
     });
 };
