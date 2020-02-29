@@ -6,11 +6,7 @@ var ObjectSchema = new Schema(
         key: { type: String, required: true },
         value: { type: String, required: true },
         timestamp: { type: Date, default: Date.now },
-            history: {
-                version: {type: Number, default: 1},
-                value: { type: String},
-                timestamp: { type: Date, default: Date.now }
-        }
+        history: { type: Array }
 });
 
 ObjectSchema.methods.toJSON = function() {

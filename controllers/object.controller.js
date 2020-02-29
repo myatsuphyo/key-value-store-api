@@ -5,31 +5,43 @@ let create = async function (req, res) {
     const key = Object.keys(req.body).toString();
     const value = Object.values(req.body).toString();
 
-    const oldValue = await findAll(req, res);
+    const oldValue = await findByKey(key);
+
     if (!key || !value) {
         res.status(500).send({
             message: err.message || "Unvalid value(s) to create a key-value record."
         });
     } else if (oldValue) {
         // update a new key-value object
-        updateAndSaveHistory(oldValue, value);
+        await updateAndSaveHistory(oldValue, value);
     } else {
         // create a new key-value object
-        // const objectModel = new ObjectModel();
-        // objectModel.key = key;
-        // objectModel.value = value;
-        // objectModel.history.version = 1;
-        // objectModel.save();
-        // res.send(objectModel);
+        const objectModel = new ObjectModel();
+        objectModel.key = key;
+        objectModel.value = value;
+        objectModel.history = [];
+        objectModel.save();
+        res.send(objectModel);
     }
 };
 
 let updateAndSaveHistory = function (oldValue, value) { 
-    const objectModel = new ObjectModel();
-    objectModel.key = key;
-    objectModel.value = value;
-    objectModel.save();
-    res.send(objectModel);
+    return new Promise(resolve => {
+        ObjectModel.findById(oldValue._id)
+        .then(record => {
+            record.value = value;
+            record.history.push({
+                "value": oldValue.value,
+                "timestamp": oldValue.timestamp
+            });
+            record.save();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        resolve('success update');
+    });
+    
 }
 
 let findAll = function (req, res) {
@@ -62,6 +74,6 @@ let findByKey = function (key) {
     });
 };
 
-// exports.create = create;
-// exports.findAll = findAll;
+exports.create = create;
+exports.findAll = findAll;
 exports.findByKeyParams = findByKeyParams;
