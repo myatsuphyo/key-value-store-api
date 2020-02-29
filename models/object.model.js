@@ -5,7 +5,7 @@ var ObjectSchema = new Schema(
     {
         key: { type: String, required: true },
         value: { type: String, required: true },
-        timestamp: { type: Date, default: Date.now },
+        timestamp: { type: Number, default: Math.round(new Date().getTime() / 1000) },
         history: { type: Array }
 });
 
@@ -13,6 +13,7 @@ ObjectSchema.methods.toJSON = function() {
     var obj = this.toObject();
     delete obj._id;
     delete obj.__v;
+    delete obj.history;
     return obj;
 };
 
