@@ -64,7 +64,12 @@ let findAll = function (req, res) {
 // this function gets key from req.params
 let findByKeyParams = async function (req, res) {
     const result = await findByKey(req.params.key);
-    res.send(result);
+    if (req.query.timestamp) {
+        const resultAfterCheckingTimestamp = await findByTimestamp(req.query.timestamp, result);
+        res.send(resultAfterCheckingTimestamp);
+    } else {
+        res.send(result);
+    }
 }
 
 let findByKey = function (key) {
@@ -78,6 +83,12 @@ let findByKey = function (key) {
             });
     });
 };
+
+let findByTimestamp = function (timestamp, result) {
+    return new Promise(resolve => {
+        
+    });
+}
 
 exports.create = create;
 exports.findAll = findAll;
