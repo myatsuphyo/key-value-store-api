@@ -5,7 +5,7 @@ var ObjectSchema = new Schema(
     {
         key: { type: String, required: true },
         value: { type: String, required: true },
-        timestamp: { type: Number, default: Math.round(new Date().getTime() / 1000) },
+        timestamp: { type: Number, required: true},
         history: { type: Array }
 });
 
