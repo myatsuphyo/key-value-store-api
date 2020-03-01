@@ -1,9 +1,42 @@
 # key-value Store API
 
+### Description
+    Key-value pairs are stored in the following format.
+    {
+        "history": [
+            {
+                "value": "value0",
+                "timestamp": 1583045290
+            },
+            {
+                "value": "value1",
+                "timestamp": 1583045279
+            },
+            {
+                "value": "value2",
+                "timestamp": 1583045356
+            },
+            {
+                "value": "value3",
+                "timestamp": 1583045371
+            },
+            {
+                "value": "value4",
+                "timestamp": 1583046413
+            }
+        ],
+        "timestamp": 1583046413,
+        "key": "mykey0",
+        "value": "value4"
+    }
+
+    Array "history" keeps history of changing values of the same key. Any given timestamp can be used to find out value of the key at that moment by using "Iterative Merging" algorithm. 
+    The simple logic of this algorithm is to find index of array which has the closest timestamp compared to given timestamp.
+    
 ### Prerequisites
 
 - nodemon: `npm i -g nodemon`
-- mongodb: `brew install mongodb` & `brew services start mongodb`
+- mongodb: `npm install mongodb` & `npm services start mongodb`
 
 ### Install
 
