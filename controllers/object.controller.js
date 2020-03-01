@@ -65,8 +65,17 @@ let findAll = function (req, res) {
 let findByKeyParams = async function (req, res) {
     const result = await findByKey(req.params.key);
     if (req.query.timestamp) {
-        const resultAfterCheckingTimestamp = await findByTimestamp(req.query.timestamp, result);
-        res.send(resultAfterCheckingTimestamp);
+        if (req.query.timestamp < result.history[0].timestamp) {
+            // before setting value 
+            res.send('No value for this key was set at the given timestamp.');
+        } else if (req.query.timestamp > result.timestamp) {
+            // after setting last value
+            res.send(result);
+        } else {
+            // finding by checking with every timestamp in history array
+            const resultAfterCheckingTimestamp = await findByTimestamp( req.query.timestamp, result);
+            res.send(resultAfterCheckingTimestamp);
+        }
     } else {
         res.send(result);
     }
@@ -86,7 +95,7 @@ let findByKey = function (key) {
 
 let findByTimestamp = function (timestamp, result) {
     return new Promise(resolve => {
-        
+        var arr = result.history;
     });
 }
 
