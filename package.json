@@ -1,5 +1,5 @@
 {
-  "name": "key-value-store-api",
+  "name": "vault-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
