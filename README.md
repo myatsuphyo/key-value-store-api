@@ -50,7 +50,7 @@ $ npm install
 ### Configure & Run
 
 ```bash
-$ cp .env.example .env.development
+$ cp .env.example .env
 $ npm run dev
 ```
 
@@ -58,7 +58,10 @@ $ npm run dev
 
 ```bash
 # create new key-value pair
-curl -H "Content-Type: application/json" -X POST -d '{"mykey":"value"}' http://localhost:8000/object
+curl -H "Content-Type: application/json" -X POST -d '{"mykey":"value0"}' http://localhost:8000/object
+
+# update new key-value pair and save history
+curl -H "Content-Type: application/json" -X POST -d '{"mykey":"value1"}' http://localhost:8000/object
 
 # get value by key
 curl -X GET http://localhost:8000/object/mykey
