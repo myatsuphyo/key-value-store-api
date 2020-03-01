@@ -78,10 +78,10 @@ let findByKeyParams = async function (req, res) {
         } else {
             // finding by checking with every timestamp in history array
             const resultAfterCheckingTimestamp = await findByTimestamp( req.query.timestamp, result);
-            res.send(resultAfterCheckingTimestamp);
+            res.send({ "value": resultAfterCheckingTimestamp });
         }
     } else {
-        res.send(result);
+        res.send({"value": result.value});
     }
 }
 
@@ -100,7 +100,30 @@ let findByKey = function (key) {
 let findByTimestamp = function (timestamp, result) {
     return new Promise(resolve => {
         var arr = result.history;
-        console.log(arr);
+        var firstIndex = parseInt(0);
+        var lastIndex = parseInt(arr.length - 1);
+        // find timestamp closest to given timestamp if there is more than one index between first and last
+        while (lastIndex - firstIndex >= 2) {
+            var indexOfClosestTimestamp = parseInt((firstIndex + lastIndex) / 2);
+            if (timestamp >= result.history[indexOfClosestTimestamp].timestamp) {
+                // to go to right (higher)
+                firstIndex = indexOfClosestTimestamp;
+            } else {
+                // to go to left (lower)
+                lastIndex = indexOfClosestTimestamp;
+            }
+        }  
+        
+        // find value by comparing given timestamp and closest timestamp
+        if (timestamp == result.history[indexOfClosestTimestamp].timestamp) {
+            resolve(result.history[indexOfClosestTimestamp].value);
+        } else {
+            if (timestamp > result.history[indexOfClosestTimestamp].timestamp) {
+                resolve(result.history[indexOfClosestTimestamp + 1].value);
+            } else {
+                resolve(result.history[indexOfClosestTimestamp - 1].value);
+            }
+        }
     });
 }
 
