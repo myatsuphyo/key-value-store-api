@@ -10,7 +10,9 @@ require("dotenv").config();
 require('./app/routes')(app, {});
 
 app.get("/", function(req, res) {
-    res.send("The node server is running");
+    res.send(
+        "Please, check READEME here. https://github.com/myatsuphyo/key-value-store-api.git"
+    );
 });
 
 // DB connection 
