@@ -1,5 +1,6 @@
 const ObjectModel = require('../models/object.model');
 
+// to create a new object
 let create = async function (req, res) {
 
     const key = Object.keys(req.body).toString();
@@ -14,7 +15,8 @@ let create = async function (req, res) {
         });
     } else if (oldValue) {
         // update a new key-value object
-        await updateAndSaveHistory(oldValue, value, currentTimestamp);
+        const newValue = await updateAndSaveHistory(oldValue, value, currentTimestamp);
+        res.send(newValue);
     } else {
         // create a new key-value object
         
@@ -33,6 +35,7 @@ let create = async function (req, res) {
     }
 };
 
+// to update value and save history, if the key is existing one
 let updateAndSaveHistory = function (oldValue, value, currentTimestamp) { 
     return new Promise(resolve => {
         ObjectModel.findById(oldValue._id)
@@ -44,15 +47,16 @@ let updateAndSaveHistory = function (oldValue, value, currentTimestamp) {
                 timestamp: currentTimestamp
             });
             record.save();
+            resolve(record);
         })
         .catch(err => {
             console.log(err);
         });
-        resolve('success update');
     });
     
 }
 
+// to find all records
 let findAll = function (req, res) {
     ObjectModel.find()
         .then(records => {

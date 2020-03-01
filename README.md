@@ -30,9 +30,10 @@
         "value": "value4"
     }
 
-    Array "history" keeps history of changing values of the same key. Any given timestamp can be used to find out value of the key at that moment by using "Iterative Merging" algorithm. 
-    The simple logic of this algorithm is to find index of array which has the closest timestamp compared to given timestamp.
-    
+    - Array "history" keeps history of changing values of the same key. 
+    - Any given timestamp can be used to find out value of the key at that moment by using "Iterative Merging" algorithm. 
+    - The simple logic of this algorithm is to find index of array which has the closest timestamp compared to given timestamp.
+
 ### Prerequisites
 
 - nodemon: `npm i -g nodemon`
@@ -63,8 +64,8 @@ curl -H "Content-Type: application/json" -X POST -d '{"mykey":"value"}' http://l
 curl -X GET http://localhost:8000/object/mykey
 
 # get value by key with timestamp
-curl -X GET http://localhost:8000/object/mykey?timestamp=1575376200
+curl -X GET http://localhost:8000/object/mykey?timestamp=1583045371
 
 # get all key-value pairs (default limit 50)
-curl -X GET http://localhost:3000/object
+curl -X GET http://localhost:8000/object
 ```
