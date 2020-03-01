@@ -19,7 +19,12 @@ let create = async function (req, res) {
         const objectModel = new ObjectModel();
         objectModel.key = key;
         objectModel.value = value;
-        objectModel.history = [];
+        objectModel.history = [
+            {
+                "value": value,
+                "timestamp": Math.round(new Date().getTime() / 1000)
+            }
+        ];
         objectModel.save();
         res.send(objectModel);
     }
@@ -31,8 +36,8 @@ let updateAndSaveHistory = function (oldValue, value) {
         .then(record => {
             record.value = value;
             record.history.push({
-                "value": oldValue.value,
-                "timestamp": oldValue.timestamp
+                value: value,
+                timestamp: Math.round(new Date().getTime() / 1000)
             });
             record.save();
         })
