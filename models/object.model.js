@@ -13,7 +13,7 @@ ObjectSchema.methods.toJSON = function() {
     var obj = this.toObject();
     delete obj._id;
     delete obj.__v;
-    // delete obj.history;
+    delete obj.history;
     return obj;
 };
 
