@@ -74,7 +74,7 @@ let findByKeyParams = async function (req, res) {
             res.send('No value for this key was set at the given timestamp.');
         } else if (req.query.timestamp > result.timestamp) {
             // after setting last value
-            res.send(result);
+            res.send({ value: result.value });
         } else {
             // finding by checking with every timestamp in history array
             const resultAfterCheckingTimestamp = await findByTimestamp( req.query.timestamp, result);
