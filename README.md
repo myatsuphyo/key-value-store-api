@@ -43,7 +43,7 @@
 
 ```bash
 $ git clone https://github.com/myatsuphyo/key-value-store-api.git
-$ cd key-value-store-api.git
+$ cd key-value-store-api
 $ npm install
 ```
 
