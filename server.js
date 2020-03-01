@@ -10,7 +10,7 @@ require("dotenv").config();
 require('./app/routes')(app, {});
 
 app.get("/", function(req, res) {
-    res.send("HELLO WORLD");
+    res.send("The node server is running");
 });
 
 // DB connection 
