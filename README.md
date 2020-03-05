@@ -1,6 +1,10 @@
 # key-value Store API
 
 ### Description
+    This is a solution code for coding test to a version controlled key-value store with a HTTP API. 
+    Please, check CodeTest.md for requirements.
+
+### Solution
     Key-value pairs are stored in the following format.
     {
         "history": [
