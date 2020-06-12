@@ -3,22 +3,16 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.urlencoded({ extended: true }))   
 app.use(bodyParser.json());
 
 require("dotenv").config();
-require('./app/routes')(app, {});
-
-app.get("/", function(req, res) {
-    res.send(
-        "Please, check READEME here. https://github.com/myatsuphyo/key-value-store-api.git"
-    );
-});
+require('./app/routes')(app);
 
 // DB connection 
 require('./db.js');
 
-const port = process.env.PORT || 000;
+const port = process.env.PORT || 8000;
 app.listen(port, err => {
     if (err) {
         console.log(`Failed to start server on port ${port}`);
